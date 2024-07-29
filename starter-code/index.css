@@ -1,0 +1,511 @@
+/* ------------------- */
+/* Custom properties   */
+/* ------------------- */
+
+:root {
+    /* colors */
+    --clr-dark: 230 35% 7%;
+    --clr-light: 231 77% 90%;
+    --clr-white: 0 0% 100%;
+
+        /* take px sizes from figma prototype and convert into rem,
+        then  create fs variable for easy and accessable font size consistency,
+        then do media query to match media font sizes from prototype*/
+
+    /* px to rem conversion */
+    /* 150px = 9.375rem*/
+    /* 100px = 6.25rem*/
+    /* 56px = 3.5rem*/
+    /* 32px = 2rem*/
+    /* 28px = 1.75rem*/
+    /* 18px = 1.125rem*/
+    /* 16px = 1rem*/
+    /* 14px = 0.875rem*/
+    
+    /* font sizes for mobile/everything not covered by below media queries*/
+    --fs-900: clamp(5rem, 10vw + 1rem, 9.375rem);
+    /* ^clamp allows up to set a min size, middle value, and maximum */
+    --fs-800: 3.5rem;
+    --fs-700: 1.5rem;
+    --fs-600: 1rem;
+    --fs-500: 1.75rem;
+    --fs-400: 0.9375rem;
+    --fs-300: 1rem;
+    --fs-200: 0.875rem;
+    
+    /* font-families */
+    --ff-serif: "Bellefair", serif;
+    --ff-sans-cond: "Barlow Condensed", sans-serif;
+    --ff-sans-normal: "Barlow", sans-serif;
+}
+
+@media (min-width: 35em) {
+    :root{
+    /* font-sizes for TABLET*/
+    --fs-800: 5rem;
+    --fs-700: 2.5rem;
+    --fs-600: 1.5rem;
+    --fs-400: 1rem;
+        
+    }
+}
+
+@media (min-width: 45em) {
+    :root{
+    /* font-sizes for DESKTOP*/
+    --fs-800: 6.25rem;
+    --fs-700: 3.5rem;
+    --fs-600: 2rem;
+    --fs-400: 1.125rem;
+    }
+
+}
+
+
+/* ------------------- */
+/* Reset               */
+/* ------------------- */
+
+/* https://piccalil.li/blog/a-modern-css-reset/ */
+
+/* Box sizing */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* Reset margins */
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+p,
+figure,
+picture {
+    margin: 0; 
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+    font-weight: 400;
+}
+
+/* set up the body */
+body {
+    font-family: var(--ff-sans-normal);
+    font-size: var(--fs-400);
+    color: hsl( var(--clr-white) );
+    background-color: hsl( var(--clr-dark) );
+    line-height: 1.5;
+    min-height: 100vh;
+    display: grid;
+    grid-template-rows: min-content 1fr;
+}
+
+/* make images easier to work with */
+img,
+picutre {
+    max-width: 100%;
+    display: block;
+}
+
+/* make form elements easier to work with */
+input,
+button,
+textarea,
+select {
+    font: inherit;
+}
+
+/* remove animations for people who've turned them off */
+@media (prefers-reduced-motion: reduce) {  
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+
+/* ------------------- */
+/* Utility classes     */
+/* ------------------- */
+
+/* general */
+
+.flex {
+    display: flex;
+    gap: var(--gap, 1rem);
+}
+
+.grid {
+    display: grid;
+    gap: var(--gap, 1rem);
+}
+
+.d-block {
+    display: block;
+}
+
+.flow > *:where(:not(:first-child)) {
+    margin-top: var(--flow-space, 1rem);
+    /* outline: 1px solid red; */
+}
+
+.container {
+    padding-inline: 2em;
+    margin-inline: auto;
+    max-width: 80rem;
+}
+
+.grid-container {
+    padding-inline: 1rem;
+    text-align: center;
+    display: grid;
+    /* this ^ creates a grid system that hold the two grid children in the middle of the page with 2em back between each coloumn */
+    place-items: center;
+    /* this ^ keeps the items centered in their own containers, where "place-content" puts both containers in the middle of the page together... to fix this problem with "place-content" sticking the containers together, you can use "row-gap" to create space between containers. */
+
+}
+
+
+
+.grid-container * {
+    max-width: 50ch;
+    /* All elements within .grid-container (e.g., <div>, <p>, and any other nested elements) are limited to a maximum width of 50 characters. */
+}
+
+@media (min-width: 45rem) {
+    .grid-container{
+        text-align: left;
+        column-gap: var(--container-gap, 2rem);
+        grid-template-columns: minmax(2rem, 1fr) repeat(2, minmax(0, 30rem)) minmax(2rem, 1fr);
+    }
+    .grid-container > *:first-child {
+        grid-column: 2;
+    }
+
+    .grid-container > *:last-child {
+        grid-column: 3;
+    }
+
+    .grid-container--home {
+        padding-bottom: max(6rem, 20vh);
+        /* ^ this max function takes the bigger of the two items depending on the screen size. that way the content wont be glued to the bottom of the page if the user is on a huge screen / computer monitor */
+        align-items: end;
+        /* for this ^ at first I thought I should use "margin-top:auto" but that is better if used for individual children in the grid. "align-items: end;" is better to use if goal is to move the entire grid container.*/
+    }
+
+}
+
+.sr-only {
+    position: absolute; 
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px; 
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap; /* added line */
+    border: 0;
+}
+
+/* colors */
+
+.bg-dark { background-color: hsl( var(--clr-dark) );}
+.bg-accent { background-color: hsl( var(--clr-light) );}
+.bg-white { background-color: hsl( var(--clr-white) );}
+
+.text-dark { color: hsl( var(--clr-dark) );}
+.text-accent { color: hsl( var(--clr-light) );}
+.text-white { color: hsl( var(--clr-white) );}
+
+/* typography */
+
+.ff-serif { font-family: var(--ff-serif); } 
+.ff-sans-cond { font-family: var(--ff-sans-cond); } 
+.ff-sans-normal { font-family: var(--ff-sans-normal); } 
+
+.letter-spacing-1 { letter-spacing: 4.75px; } 
+.letter-spacing-2 { letter-spacing: 2.7px; } 
+.letter-spacing-3 { letter-spacing: 2.35px; } 
+
+.uppercase { text-transform: uppercase; }
+
+.fs-900 { font-size: var(--fs-900); }
+.fs-800 { font-size: var(--fs-800); }
+.fs-700 { font-size: var(--fs-700); }
+.fs-600 { font-size: var(--fs-600); }
+.fs-500 { font-size: var(--fs-500); }
+.fs-400 { font-size: var(--fs-400); }
+.fs-300 { font-size: var(--fs-300); }
+.fs-200 { font-size: var(--fs-200); }
+
+.fs-900,
+.fs-800,
+.fs-700,
+.fs-600 {
+    line-height: 1.1;
+}
+
+.numbered-title {
+    font-family: var(--ff-sans-cond);
+    font-size: var(--fs-500);
+    text-transform: uppercase;
+    letter-spacing: 4.72px; 
+}
+
+.numbered-title span {
+    margin-right: .5em;
+    font-weight: 700;
+    color: hsl( var(--clr-white) / .25);
+}
+
+/* ------------------- */
+/* Compontents         */
+/* ------------------- */
+
+.large-button{
+    font-size: 2rem;
+    position:relative;
+    display: inline-grid;
+    /* ^we are working with a link which is an inline element, we cant give top and bottom padding because it will overlap with other content
+    /* place-items: center; */ 
+    /* ^centers text, shorthand for align and justify items, works well with "display:grid" */
+    z-index: 1;
+    place-items: center;
+    padding: 0 2em; 
+    /* ^ 0 on top and bottom, 2rem on left and right
+    using em causing the padding to grow or shrink if the font size changes */
+    border-radius: 50%;
+    aspect-ratio: 1;
+    /* ^modern css to turn the size into a perfect square */
+    text-decoration: none;
+}
+
+
+
+.large-button::after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    background: hsl( var(--clr-white) / .15);
+    border-radius: 50%;
+    opacity: 0;
+    /* this is what makes the animation move */
+    transition: opacity 500ms linear, transform 750ms ease-in-out;
+    /* different animation options */
+    /* bounce */
+    /*  transition: opacity 500ms cubic-bezier(0.68, -0.55, 0.27, 1.55), transform 750ms cubic-bezier(0.68, -0.55, 0.27, 1.55);} */
+    /* steps */
+    /* transition: opacity 500ms steps(4), transform 750ms steps(4); */
+}
+
+.large-button:hover::after,
+.large-button:focus::after {
+    opacity: 1;
+    transform: scale(1.5);
+}
+
+.primary-navigation {
+    --gap: 8rem;
+    --underline-gap: 2rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.primary-navigation a {
+    text-decoration: none;
+}
+
+.primary-navigation a > span {
+    font-weight: 700;
+    margin-right: .5em;
+}
+
+/* all of the indicators may need a little tweaking to work properly with the code... */
+/* reccommended code from scrimba wasn't working with hover (scrimba code commented out below) */
+
+.underline-indicators li,
+.underline-indicators button {
+    padding: var(--underline-gap, 1rem) 0;
+    border: 0;
+    border-bottom: .2rem solid hsl( var(--clr-white) / 0 );
+}
+
+.underline-indicators li:hover,
+.underline-indicators button:hover,
+.underline-indicators li:focus,
+.underline-indicators button:focus {
+    border-color: hsl( var(--clr-white) / .5);
+}
+
+.underline-indicators > .active,
+.underline-indicators > [aria-selected="true"] {
+    color: hsl( var(--clr-white) / 1);
+    border-color: hsl( var(--clr-white) / 1);
+}
+
+.tab-list {
+    --gap: 2rem;
+}
+
+.dot-indicators button{
+    cursor: pointer;
+    border: 0;
+    border-radius: 50%;
+    padding: .5em;
+    background-color: hsl( var(--clr-white) / .25);
+}
+
+.dot-indicators button:hover,
+.dot-indicators button:focus {
+    background-color: hsl( var(--clr-white) / .5);
+}
+
+.dot-indicators > [aria-selected="true"] {
+    background-color: hsl( var(--clr-white) / 1); 
+}
+
+.number-indicators button {
+    font-size: 1.5rem;
+    color:  hsl( var(--clr-white) );
+    cursor: pointer;
+    border: .04em solid;
+    border-color: hsl( var(--clr-white) / .5);
+    border-radius: 50%;
+    aspect-ratio: 1;
+    padding: .3em;
+    width: 30%;
+    background-color: hsl( var(--clr-dark) );
+}
+
+.number-indicators button:hover,
+.number-indicators button:focus {
+    border-color: hsl( var(--clr-white) );
+}
+
+.number-indicators > [aria-selected="true"] {
+    background-color: hsl( var(--clr-white) / 1); 
+    color: hsl( var(--clr-dark) );
+}
+
+
+/* suggested code from scrimba project */
+
+/* .underline-indicators > * {
+    cursor: pointer;
+    padding: var(--underline-gap, 1rem) 0;
+    border: 0;
+    border-bottom: .2rem solid hsl( var(--clr-white) / 0 );
+}
+
+.underline-indicators > *:hover,
+.underline-indicators > *:focus {
+    border-color: hsl( var(--clr-white) / .5);
+}
+
+.underline-indicators > .active,
+.underline-indicators > [aria-selected="true"] {
+    color: hsl( var(--clr-white) / 1);
+    border-color: hsl( var(--clr-white) / 1); 
+}
+
+
+.tab-list {
+    --gap: 2rem;
+}
+
+.dot-indicators > * {
+    cursor: pointer;
+    border: 0;
+    border-radius: 50%;
+    padding: .5em;
+    background-color: hsl( var(--clr-white) / .25);
+}
+ 
+.dot-indicators > *:hover,
+.dot-indicators > *:focus {
+    background-color: hsl( var(--clr-white) / .5);
+}
+
+.dot-indicators > [aria-selected="true"] {
+    background-color: hsl( var(--clr-white) / 1); 
+}
+
+.number-indicators > * {
+    font-size: 1.5rem;
+    color:  hsl( var(--clr-white) );
+    cursor: pointer;
+    border: .04em solid;
+    border-color: hsl( var(--clr-white) / .5);
+    border-radius: 50%;
+    aspect-ratio: 1;
+    padding: .3em;
+    width: 30%;
+    background-color: hsl( var(--clr-dark) );
+}
+
+.number-indicators > *:hover,
+.number-indicators > *:focus {
+    border-color: hsl( var(--clr-white) );
+}
+
+.number-indicators > [aria-selected="true"] {
+    background-color: hsl( var(--clr-white) / 1); 
+    color: hsl( var(--clr-dark) );
+} */
+
+
+
+/* --------------------------- */
+/* Page-Specific Backgrounds  */
+/* ----------------------------*/
+
+
+body{
+    background-size: cover;
+    /* ^keeps the image from repeating */
+    background-position: bottom center;
+    /* ^keeps the image in place so it doesnt get cut off at the bottom */
+}
+
+
+
+/* home */
+
+.home{
+
+    background-image: url(./assets/home/background-home-mobile.jpg);
+}
+
+
+@media (min-width: 35em) {
+    .home{
+    /* background-image for TABLET*/
+        background-image: url(./assets/home/background-home-tablet.jpg);
+    }
+}
+
+@media (min-width: 45em) {
+    .home{
+    /* background-image for DESKTOP*/
+    background-image: url(./assets/home/background-home-desktop.jpg);
+
+    }
+
+}
