@@ -321,12 +321,42 @@ select {
 }
 
 .primary-navigation {
-    --gap: 8rem;
     --underline-gap: 2rem;
     list-style: none;
     padding: 0;
     margin: 0;
+    background: hsl( var(--clr-dark) / 0.95);
+    /* ^we create this backup option when using a css property that may not be accepted by all browsers. */
+    /* backdrop-filter: blur(1.5rem); */
 }
+
+
+/* "@supports checks with the broswer to make sure this css property is accepted by browser and if so, it uses this option to create "frosted glass look"" */
+@supports (backdrop-filter: blur(1rem)) {
+    .primary-navigation {
+        background: hsl( var(--clr-white) / 0.05);
+        backdrop-filter: blur(1.5rem);
+    }
+}
+
+@media (max-width: 35rem) {
+    .primary-navigation {
+        --underline-gap: .5rem;
+        position: fixed;
+        z-index: 1000;
+        inset: 0 0 0 30%;
+        /* new shorthand css for top, bottom, left, right */
+        list-style: none;
+        padding: min(20rem, 15vh) 2rem;
+        margin: 0;
+        flex-direction: column;
+    }
+
+    .primary-navigation.underline-indicators > * {
+        border: 0;
+    }
+}
+
 
 .primary-navigation a {
     text-decoration: none;
