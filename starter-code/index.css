@@ -355,6 +355,8 @@ select {
         padding: min(20rem, 15vh) 2rem;
         margin: 0;
         flex-direction: column;
+        transform: translateX(100%);
+        /* ^this keeps the nav menu out of view until data-visible value is changed. */
     }
 
     .primary-navigation[data-visible="true"] {
