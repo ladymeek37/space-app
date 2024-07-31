@@ -9,14 +9,14 @@ navToggle.addEventListener("click",() => {
     // if the nav is closed, open it
     if (visiblity === "false") {
         nav.setAttribute("data-visible", true);
+        navToggle.setAttribute("aria-expanded", true);
     // if the nav is open, close it
     } else {
         nav.setAttribute("data-visible", false);
+        navToggle.setAttribute("aria-expanded", false);
     }
     
     
-    
-    console.log(visiblity);
 
 })
 

@@ -321,14 +321,40 @@ select {
     transform: scale(1.5);
 }
 
+
+/* primary-header */
+
+.logo {
+    /* this sets a min and max space on the sides for the margin of the logo so as the screen size changes, so does the left and rigt margin of the button */
+    margin: 1.5rem clamp(1.5rem, 5vw, 3.5rem);
+}
+
+.primary-header {
+    justify-content: space-between;
+    align-items: center;
+}
+
+
 .primary-navigation {
+    --gap: clamp(1.5rem, 5vw, 3.5rem);
     --underline-gap: 2rem;
     list-style: none;
     padding: 0;
     margin: 0;
+    position: relative;
+    z-index: -1000;
     background: hsl( var(--clr-dark) / 0.95);
     /* ^we create this backup option when using a css property that may not be accepted by all browsers. */
     /* backdrop-filter: blur(1.5rem); */
+}
+
+.primary-navigation a {
+    text-decoration: none;
+}
+
+.primary-navigation a > span {
+    font-weight: 700;
+    margin-right: .5em;
 }
 
 /* hides mobile menu toggle option on desktop */
@@ -357,6 +383,8 @@ select {
         flex-direction: column;
         transform: translateX(100%);
         /* ^this keeps the nav menu out of view until data-visible value is changed. */
+        transition: transform 500ms ease-in-out;
+        /* ^this creates a sliding animation when the nav is opened and closed */
     }
 
     .primary-navigation[data-visible="true"] {
@@ -377,21 +405,64 @@ select {
         background: transparent;
         background-image: url(./assets/shared/icon-hamburger.svg);
         background-repeat: no-repeat;
+        background-position: center;
         width: 1.5rem;
         aspect-ratio: 1;
         border: 0;
     }
 
+    .mobile-nav-toggle[aria-expanded="true"] {
+        background-image: url(./assets/shared/icon-close.svg);
+    }
+    /* ^this changes the hamburger icon to an "x" icon when nav is open */
+
+
+    /* remove button outline? */
+    /* .mobile-nav-toggle:focus-visible {
+        outline: 5px solid white;
+        outline-offset: 5px;
+    } */
+
 }
 
-
-.primary-navigation a {
-    text-decoration: none;
+@media (min-width: 35em) {
+    .primary-navigation {
+        padding-inline: clamp(3rem, 7vw, 7rem);
+    }
 }
 
-.primary-navigation a > span {
-    font-weight: 700;
-    margin-right: .5em;
+@media (min-width: 35em) and (max-width: 44.999em) {
+    .primary-navigation a > span {
+        display: none;
+    }
+}
+
+@media (min-width: 45em) {
+    
+    /* line in between logo and nav menu */
+    .primary-header::after {
+        content: '';
+        display: block;
+        position: relative;
+        margin-right: -2.5rem;
+        height: 1px;
+        width: 100%;
+        background: hsl( var(--clr-light) / .3 );
+        order: 1;
+    }
+
+    /* to place the line in the middle of the 2 flex items, use the css "order" property. */
+    /* giving the line an order of one and the nav an order of 2 puts it in front of the logo. */
+
+   nav {
+       order: 2;
+   }
+   
+   .primary-navigation {
+       margin-block: 2rem;
+   }
+   
+  
 }
 
 /* all of the indicators may need a little tweaking to work properly with the code... */
