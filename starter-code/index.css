@@ -222,6 +222,23 @@ select {
     border: 0;
 }
 
+
+/* accessibility */
+.skip-to-content {
+    position: absolute;
+    z-index: 9999;
+    background: hsl( var(--clr-white) );
+    color: hsl( var(--clr-dark) );
+    padding: .5em 1em;
+    margin-inline: auto;
+    transform: translateY(-100%);
+    transition: transform 250ms ease-in;
+}
+
+.skip-to-content:focus {
+    transform: translateY(0);
+}
+
 /* colors */
 
 .bg-dark { background-color: hsl( var(--clr-dark) );}
@@ -343,10 +360,20 @@ select {
     margin: 0;
     position: relative;
     z-index: -1000;
-    background: hsl( var(--clr-dark) / 0.95);
+    background: hsl( var(--clr-light) / 0.20);
     /* ^we create this backup option when using a css property that may not be accepted by all browsers. */
     /* backdrop-filter: blur(1.5rem); */
 }
+
+
+/* "@supports checks with the broswer to make sure this css property is accepted by browser and if so, it uses this option to create "frosted glass look"" */
+@supports (backdrop-filter: blur(1rem)) {
+    .primary-navigation {
+        background: hsl( var(--clr-white) / 0.05);
+        backdrop-filter: blur(1.5rem);
+    }
+}
+
 
 .primary-navigation a {
     text-decoration: none;
@@ -362,13 +389,7 @@ select {
     display: none;
 }
 
-/* "@supports checks with the broswer to make sure this css property is accepted by browser and if so, it uses this option to create "frosted glass look"" */
-@supports (backdrop-filter: blur(1rem)) {
-    .primary-navigation {
-        background: hsl( var(--clr-white) / 0.05);
-        backdrop-filter: blur(1.5rem);
-    }
-}
+
 
 @media (max-width: 35rem) {
     .primary-navigation {
