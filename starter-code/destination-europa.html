@@ -17,7 +17,7 @@
   <title>Space tourism website</title>
 
   <script src="index.js" defer></script>
-  
+
 </head>
 
 <body class = "destination">
@@ -31,8 +31,8 @@
     </button>
     <nav>
         <ul id="primary-navigation" data-visible="false" class="primary-navigation underline-indicators flex">
-          <li class="active"><a class="ff-sans-cond uppercase text-white letter-spacing-2" href="index.html"><span aria-hidden="true">00</span>Home</a>
-          <li><a class="ff-sans-cond uppercase text-white letter-spacing-2" href="destination.html"><span aria-hidden="true">01</span>Destination</a>
+          <li><a class="ff-sans-cond uppercase text-white letter-spacing-2" href="index.html"><span aria-hidden="true">00</span>Home</a>
+          <li class="active"><a class="ff-sans-cond uppercase text-white letter-spacing-2" href="destination.html"><span aria-hidden="true">01</span>Destination</a>
           <li><a class="ff-sans-cond uppercase text-white letter-spacing-2" href="crew.html"><span aria-hidden="true">02</span>Crew</a>
           <li><a class="ff-sans-cond uppercase text-white letter-spacing-2" href="technology.html"><span aria-hidden="true">03</span>Technology</a>
         </ul>
@@ -41,8 +41,10 @@
 <main id="main" class = "grid-container grid-container--destination flow">
 
   <h1 class="numbered-title"><span aria-hidden="true">01</span> Pick your destination</h1>
-
-  <img src="./assets/destination/image-europa.png" alt = "Titan"/>
+  <picture>
+    <source srcset="./assets/destination/image-europa.webp" type="image/webp"/>
+    <img src="./assets/destination/image-europa.png" alt = "Europa"/>
+  </picture>
 
   <div class="tab-list underline-indicators flex">
     <button aria-selected="false" class="uppercase ff-sans-cond text-accent bg-dark letter-spacing-2">Moon</button>
@@ -51,7 +53,7 @@
     <button aria-selected="false" class="uppercase ff-sans-cond text-accent bg-dark letter-spacing-2">Titan</button>
   </div>
 
-  <artile class="destination-info">
+  <artile class="destination-info flow">
 
     <h2 class = "fs-800 ff-serif uppercase">Europa</h2>
 
@@ -72,7 +74,9 @@
           <p class="ff-serif uppercase fs-500">3 years</p>
       </div>
     </div>
+  
   </artile>
+
 
 </main>
 </body>

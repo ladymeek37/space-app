@@ -167,6 +167,11 @@ select {
 }
 /* :not(:first-child): Excludes the first child from being selected. This means the styles within this rule will be applied to all children of .flow except the first one. */
 
+.flow--space-small {
+    --flow-space: .75rem;
+}
+
+
 .container {
     padding-inline: 2em;
     margin-inline: auto;
@@ -253,6 +258,10 @@ select {
     margin-right: .5em;
     font-weight: 700;
     color: hsl( var(--clr-white) / .25);
+}
+
+.crew-title{
+    opacity: 50%;
 }
 
 /* ------------------- */
@@ -456,7 +465,7 @@ select {
 
 .underline-indicators li,
 .underline-indicators button {
-    padding: var(--underline-gap, 1rem) 0;
+    padding: var(--underline-gap, .5rem) 0;
     background: transparent;
     border: 0;
     border-bottom: .2rem solid hsl( var(--clr-white) / 0 );
@@ -667,6 +676,14 @@ body{
     }
 }
 
+@media (min-width: 35em) {
+    .grid-container--crew {
+        justify-self: start;
+        margin-top: 2rem;
+    }
+}
+
+
 
 /* --------------------------- */
 /* Layout  */
@@ -707,7 +724,7 @@ body{
 }
 
 
-.grid-container--destination > img {
+.grid-container--destination > picture {
     grid-area: image;
     max-width: 60%;
 }
@@ -737,10 +754,58 @@ body{
 }
 
 
+
+
+
+
+/* crew layout */
+
+.grid-container--crew{
+    --flow-space: 2rem;
+    grid-template-areas:
+    'title'
+    'content'
+    'tabs'
+    'image'
+}
+
+.grid-container--crew > picture {
+    grid-area: image;
+    max-width: 60%;
+    border-bottom: 1px solid hsl( var(--clr-white) / .1);
+    
+}
+
+.grid-container--crew > .dot-indicators {
+    grid-area: tabs;
+}
+
+.grid-container--crew > .crew-details {
+    grid-area: content;
+}
+
+.crew-details h2 {
+    color: hsl( var(--clr-white) /.5 );
+
+}
+
+
+
+
+
 @media (min-width: 35em) {
     .numbered-title {
         justify-self: start;
         margin-top: 2rem;
+        margin-bottom: 5rem;
+    }
+
+    .grid-container--crew{
+        padding-bottom: 0;
+    }
+    .grid-container--crew > picture {
+        max-width: 55%;
+        padding-top: 1rem;
     }
 }
 
@@ -770,12 +835,13 @@ body{
         justify-items: start;
         align-content: start;
         grid-template-areas: 
-            '. title title .'
-            '. image tabs .'
-            '. image content .';
+        '. title title .'
+        '. image tabs .'
+        '. image content .';
     }
 
-    .grid-container--destination > img {
+    .grid-container--destination > picture,
+    .grid-container--crew > picture {
         max-width: 90%;
     }
 
@@ -785,4 +851,19 @@ body{
         --gap: min(6vw, 6rem);
     }
 
+    .grid-container--crew{
+        width: 100%;
+        justify-items: start;
+        align-content: start;
+        grid-template-areas: 
+        '. title image .'
+        '. content image .'
+        '. tabs image .';
+    }
+
+    /* .grid-container--crew > pictu {
+        align-self: end;
+    } */
+
 }
+
