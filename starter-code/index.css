@@ -865,5 +865,14 @@ body{
         align-self: end;
     } */
 
+    /* [role="tab"]:focus {
+        color: limegreen;
+    } */
+    
+
 }
+
+/* [role="tab"]:focus {
+    color: limegreen;
+} */
 
