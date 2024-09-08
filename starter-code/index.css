@@ -333,7 +333,7 @@ select {
     padding: 0;
     margin: 0;
     position: relative;
-    z-index: -1000;
+    /* z-index: -1000; */
     background: hsl( var(--clr-light) / 0.20);
     /* ^we create this backup option when using a css property that may not be accepted by all browsers. */
     /* backdrop-filter: blur(1.5rem); */
@@ -529,72 +529,6 @@ select {
 }
 
 
-/* suggested code from scrimba project */
-
-/* .underline-indicators > * {
-    cursor: pointer;
-    padding: var(--underline-gap, 1rem) 0;
-    border: 0;
-    border-bottom: .2rem solid hsl( var(--clr-white) / 0 );
-}
-
-.underline-indicators > *:hover,
-.underline-indicators > *:focus {
-    border-color: hsl( var(--clr-white) / .5);
-}
-
-.underline-indicators > .active,
-.underline-indicators > [aria-selected="true"] {
-    color: hsl( var(--clr-white) / 1);
-    border-color: hsl( var(--clr-white) / 1); 
-}
-
-
-.tab-list {
-    --gap: 2rem;
-}
-
-.dot-indicators > * {
-    cursor: pointer;
-    border: 0;
-    border-radius: 50%;
-    padding: .5em;
-    background-color: hsl( var(--clr-white) / .25);
-}
- 
-.dot-indicators > *:hover,
-.dot-indicators > *:focus {
-    background-color: hsl( var(--clr-white) / .5);
-}
-
-.dot-indicators > [aria-selected="true"] {
-    background-color: hsl( var(--clr-white) / 1); 
-}
-
-.number-indicators > * {
-    font-size: 1.5rem;
-    color:  hsl( var(--clr-white) );
-    cursor: pointer;
-    border: .04em solid;
-    border-color: hsl( var(--clr-white) / .5);
-    border-radius: 50%;
-    aspect-ratio: 1;
-    padding: .3em;
-    width: 30%;
-    background-color: hsl( var(--clr-dark) );
-}
-
-.number-indicators > *:hover,
-.number-indicators > *:focus {
-    border-color: hsl( var(--clr-white) );
-}
-
-.number-indicators > [aria-selected="true"] {
-    background-color: hsl( var(--clr-white) / 1); 
-    color: hsl( var(--clr-dark) );
-} */
-
-
 
 /* --------------------------- */
 /* Page-Specific Backgrounds  */
@@ -727,6 +661,7 @@ body{
 .grid-container--destination > picture {
     grid-area: image;
     max-width: 60%;
+    align-self: start;
 }
 
 .grid-container--destination > .tab-list {
@@ -840,8 +775,7 @@ body{
         '. image content .';
     }
 
-    .grid-container--destination > picture,
-    .grid-container--crew > picture {
+    .grid-container--destination > picture{
         max-width: 90%;
     }
 
@@ -852,6 +786,8 @@ body{
     }
 
     .grid-container--crew{
+        grid-template-columns: minmax(1rem, 1fr) minmax(0, 37rem) minmax(0, 23rem) minmax(1rem, 1fr);
+        justify-items: start;
         width: 100%;
         justify-items: start;
         align-content: start;
@@ -861,9 +797,11 @@ body{
         '. tabs image .';
     }
 
-    /* .grid-container--crew > pictu {
+    .grid-container--crew > picture {
+        grid-column: span 2;
         align-self: end;
-    } */
+        max-width: 90%;
+    }
 
     /* [role="tab"]:focus {
         color: limegreen;
