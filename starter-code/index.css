@@ -507,15 +507,21 @@ select {
 
 .number-indicators button {
     font-size: 1.5rem;
-    color:  hsl( var(--clr-white) );
+    color: hsl(var(--clr-white));
     cursor: pointer;
-    border: .04em solid;
-    border-color: hsl( var(--clr-white) / .5);
-    border-radius: 50%;
-    aspect-ratio: 1;
-    padding: .3em;
-    width: 30%;
-    background-color: hsl( var(--clr-dark) );
+    border: 0.04em solid;
+    border-color: hsl(var(--clr-white) / 0.5);
+    border-radius: 50%; /* Ensures the button is a circle */
+    aspect-ratio: 1 / 1; /* Keeps the button square */
+    width: 3rem; /* Fixed width */
+    height: 3rem; /* Fixed height */
+    display: flex; /* Aligns the number in the center */
+    align-items: center;
+    justify-content: center;
+    background-color: hsl(var(--clr-dark));
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    /* margin: 0.5rem; Optional: to add some space between the buttons */
 }
 
 .number-indicators button:hover,
@@ -616,6 +622,27 @@ body{
         margin-top: 2rem;
     }
 }
+
+/* technology */
+
+.technology{
+    background-image: url(./assets/technology/background-technology-mobile.jpg);
+}
+
+@media (min-width: 35em){
+    .technology{
+        /* background-image for TABLET */
+        background-image: url(./assets/technology/background-technology-tablet.jpg);
+    }
+}
+
+@media (min-width: 45em) {
+    .technology{
+        /* background-image for DESKTOP */
+        background-image: url(./assets/technology/background-technology-desktop.jpg);
+    }
+}
+
 
 
 
@@ -802,15 +829,100 @@ body{
         align-self: end;
         max-width: 90%;
     }
-
-    /* [role="tab"]:focus {
-        color: limegreen;
-    } */
     
+}
+
+
+/* technology layout */
+
+.grid-container--technology{
+    grid-template-areas: 
+        'title'
+        'image'
+        'tabs'
+        'content'
+    
+    ;
+    padding-inline: 0rem;
 
 }
 
-/* [role="tab"]:focus {
-    color: limegreen;
-} */
+.grid-container--technology > picture {
+    grid-area: image;
+}
+
+.grid-container--technology > .number-indicators {
+    grid-area: tabs;
+}
+
+.grid-container--technology > .technology-details {
+    grid-area: content;
+}
+
+.technology-details h2 {
+    color: hsl( var(--clr-white) /.5 );
+
+}
+
+.technology-details {
+    padding-inline: 2rem;
+}
+
+@media (min-width: 35em) {
+    .numbered-title {
+        justify-self: start;
+        margin-left: 2rem;
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+    }
+
+    .technology-details {
+        padding-inline: 7rem;
+        /* padding-top: 2rem; */
+    }
+
+}
+
+@media (min-width: 45em) {
+    
+    .grid-container--technology {
+        display: grid;
+        grid-template-columns: minmax(1rem, 1fr) minmax(0, 7rem) minmax(0, 40rem) minmax(1rem, 33rem);
+        grid-template-rows: auto; 
+        align-content: start;
+        grid-template-areas: 
+            ". title title title"
+            ". tabs content image";
+        gap: 1rem; 
+    }
+
+    .grid-container--technology > picture {
+        max-width: 100%;
+        justify-self: end;
+        
+    }
+
+
+    .technology-details {
+        padding-inline: 2rem;
+    }
+
+    .number-indicators{
+        flex-direction: column;
+    }
+
+    .number-indicators button{
+        font-size: 2rem;
+        width:5rem;
+        height:5rem;
+        margin: .5rem
+    }
+
+    .container{
+        padding: 0;
+    }
+
+}
+
+
 
